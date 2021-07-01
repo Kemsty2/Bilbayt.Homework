@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using Bilbayt.Homework.Api.Domain.Common;
+using Bilbayt.Homework.Api.Domain.Settings;
 using Bilbayt.Homework.Api.Infrastructure.Filters;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
@@ -11,7 +13,10 @@ using Newtonsoft.Json.Serialization;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using Bilbayt.Homework.Api.Domain.Common;
+using Bilbayt.Homework.Api.Persistence.Repositories.Contracts;
+using Bilbayt.Homework.Api.Persistence.Repositories.Implementations;
+using Bilbayt.Homework.Api.Service.Contract;
+using Bilbayt.Homework.Api.Service.Implementation;
 
 namespace Bilbayt.Homework.Api.Infrastructure.Extension
 {
@@ -28,6 +33,9 @@ namespace Bilbayt.Homework.Api.Infrastructure.Extension
 
         public static void AddScopedServices(this IServiceCollection serviceCollection)
         {
+            serviceCollection.AddScoped<IJwtAuthService, JwtAuthService>();
+            serviceCollection.AddScoped<INotificationService, NotificationService>();
+            serviceCollection.AddScoped(typeof(IMongoRepository<>), typeof(MongoRepository<>));
         }
 
         public static void AddTransientServices(this IServiceCollection serviceCollection)
@@ -120,6 +128,12 @@ namespace Bilbayt.Homework.Api.Infrastructure.Extension
             });
 
             serviceCollection.AddVersionedApiExplorer();
+        }
+
+        public static void AddOptions(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.Configure<JwtSettings>(configuration.GetSection($"{Constants.JwtSettingsSectionName}"));
+            services.Configure<MongoDbSettings>(configuration.GetSection($"{Constants.MongoDbSettingsSectionName}"));
         }
     }
 }

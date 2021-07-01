@@ -34,7 +34,5 @@
 
   <ItemGroup>
     <Folder Include="Mapping\" />
-    <Folder Include="ViewModel\" />
   </ItemGroup>
-
 </Project>

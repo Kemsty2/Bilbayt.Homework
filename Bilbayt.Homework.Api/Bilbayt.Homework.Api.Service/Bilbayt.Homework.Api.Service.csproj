@@ -10,6 +10,7 @@
     <PackageReference Include="FluentValidation" Version="9.5.3" />
     <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="9.5.3" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.7" />
     <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="5.0.0" />
     <PackageReference Include="Microsoft.FeatureManagement.AspNetCore" Version="2.2.0" />
     <PackageReference Include="MimeKit" Version="2.11.0" />
@@ -22,9 +23,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Contract\" />
-    <Folder Include="Features\" />
-    <Folder Include="Implementation\" />
+    <Folder Include="Features\AccountFeatures\Commands\" />
+    <Folder Include="Features\AccountFeatures\Validations\" />
+    <Folder Include="Features\AccountFeatures\Notifications\" />
+    <Folder Include="Features\AccountFeatures\Queries\" />
     <Folder Include="Middleware\" />
   </ItemGroup>
 </Project>

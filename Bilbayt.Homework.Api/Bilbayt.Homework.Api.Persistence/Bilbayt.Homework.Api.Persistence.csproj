@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MongoDB.Driver" Version="2.12.4" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Bilbayt.Homework.Api.Domain\Bilbayt.Homework.Api.Domain.csproj" />
   </ItemGroup>
 </Project>

@@ -24,7 +24,7 @@ namespace Bilbayt.Homework.Api
         {
             services.AddController();
 
-            services.AddIdentityService(Configuration);
+            services.AddAuthenticationService(Configuration);
 
             services.AddAutoMapper();
 
