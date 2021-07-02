@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System;
+using System.Security.Authentication;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -41,6 +42,7 @@ namespace Bilbayt.Homework.Api.Service.Features.Behaviours
                 {
                     BadRequestException e => new AutoWrapper.Wrappers.ApiException(e.Message),
                     ValidationException e => new AutoWrapper.Wrappers.ApiException(e.Failures),
+                    AuthenticationException e => new AutoWrapper.Wrappers.ApiException(e.Message, 401),
                     NotFoundException e => new AutoWrapper.Wrappers.ApiException(e.Message, 404),
                     DeleteFailureException e => new AutoWrapper.Wrappers.ApiException(e.Message, 500),
                     ConflictException e => new AutoWrapper.Wrappers.ApiException(e.Message, 409),

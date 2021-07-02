@@ -21,10 +21,5 @@
         /// Access token expiration time in millisecond
         /// </summary>
         public int AccessTokenExpiration { get; set; }
-
-        /// <summary>
-        /// Refresh token expiration time in millisecond
-        /// </summary>
-        public int RefreshTokenExpiration { get; set; }
     }
 }
