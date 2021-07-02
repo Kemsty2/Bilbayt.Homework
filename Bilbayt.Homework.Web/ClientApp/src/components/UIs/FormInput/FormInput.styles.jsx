@@ -12,11 +12,16 @@ export const Input = styled.input`
     font-size: 14px;
   }
 
-  &:focus {
-    background-color: #fff;
-    border: 1px solid #e0e0e0;
-    box-shadow: unset;
-  }
+  ${(props) => {
+    if (!props.disabled && !props.readOnly) {
+      return `       
+      &:focus {
+        background-color: #fff;
+        border: 1px solid #e0e0e0;
+        box-shadow: unset;
+      }`;
+    }
+  }}
 
   ${(props) => {
     if (props.type === "password") {

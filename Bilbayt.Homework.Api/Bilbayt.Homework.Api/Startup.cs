@@ -51,6 +51,12 @@ namespace Bilbayt.Homework.Api
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.UseCors(options =>
+                options.WithOrigins("https://localhost:5001")
+                    .SetIsOriginAllowed((host) => true)
+                    .AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .AllowCredentials());
 
             app.UseAutoWrapper();
 

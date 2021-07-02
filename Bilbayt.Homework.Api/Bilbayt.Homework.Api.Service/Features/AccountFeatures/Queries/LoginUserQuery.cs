@@ -56,7 +56,8 @@ namespace Bilbayt.Homework.Api.Service.Features.AccountFeatures.Queries
                 return new[]
                 {
                     new Claim(ClaimTypes.Name, user.UserName),
-                    new Claim(ClaimTypes.Email, user.UserName)
+                    new Claim(ClaimTypes.Email, user.UserName),
+                    new Claim("FullName", user.FullName)
                 };
             }
 

@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 namespace Bilbayt.Homework.Api.Controllers.V1
 {
     [ApiController]
-    [Route("api/v{version:apiVersion}/acconts")]
+    [Route("api/v{version:apiVersion}/accounts")]
     [ApiVersion("1.0")]
     [Produces("application/json")]
     public class AccountsController : BaseController
@@ -60,7 +60,7 @@ namespace Bilbayt.Homework.Api.Controllers.V1
         public async Task<IActionResult> Register([FromBody] RegisterDto dto)
         {
             var user = await Mediator.Send(new RegisterUserCommand(dto));
-            await Mediator.Publish(new UserRegisteredNotification() { User = user });
+            //await Mediator.Publish(new UserRegisteredNotification() { User = user });
 
             return Created(new Uri("/api/accounts/profile", UriKind.Relative), _mapper.Map<User, UserViewModel>(user));
         }

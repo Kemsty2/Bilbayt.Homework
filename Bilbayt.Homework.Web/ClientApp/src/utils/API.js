@@ -6,7 +6,6 @@ import checkTokenExpirationOnRequest from "../middlewares/checkTokenExpirationOn
 const API = axios.create({
   baseURL: BASE_URL,
 });
-
-API.interceptors.response.use(checkTokenExpirationOnRequest);
+API.interceptors.request.use(checkTokenExpirationOnRequest);
 
 export default API;

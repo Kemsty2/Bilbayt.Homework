@@ -1,5 +1,5 @@
 import { USER_LOGOUT, SET_USER_INFO, SET_TOKEN_USER } from "./users.types";
-import { loginApi, registerApi } from "./users.api";
+import { loginApi, registerApi, getProfileApi } from "./users.api";
 import { displayError } from "../../../utils";
 import { successStore } from "../messages/messages.action";
 
@@ -24,7 +24,10 @@ export const loginAsync = (data) => (dispatch) => {
   return new Promise((resolve, reject) => {
     loginApi(data)
       .then((token) => {
-        dispatch(setTokenUser(token));
+        dispatch(setTokenUser(token.accessToken));
+        dispatch(
+          successStore(`Hello, ${token.userName} Welcome to Bilbayt Homework. `)
+        );
         resolve();
       })
       .catch((err) => {
@@ -43,6 +46,20 @@ export const registerAsync = (data) => (dispatch) => {
             `Hello, ${user.userName} Successful registration, you will receive a welcome email. `
           )
         );
+        resolve();
+      })
+      .catch((err) => {
+        displayError(err);
+        reject();
+      });
+  });
+};
+
+export const getProfileAsync = () => (dispatch) => {
+  return new Promise((resolve, reject) => {
+    getProfileApi()
+      .then((user) => {
+        dispatch(setUserInfo(user));
         resolve();
       })
       .catch((err) => {

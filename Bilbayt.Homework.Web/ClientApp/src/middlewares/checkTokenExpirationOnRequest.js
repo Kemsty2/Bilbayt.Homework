@@ -10,10 +10,14 @@ const checkTokenExpirationOnRequest = function (config) {
   if (userString) {
     const token = JSON.parse(userString).token;
 
-    if (token && jwtDecode(token).exp < Date.now() / 1000) {
-      localStorage.clear();
-      setAuthToken(null);
-      window.location = "/";
+    if (token) {
+      if (jwtDecode(token).exp < Date.now() / 1000) {
+        localStorage.clear();
+        setAuthToken(null);
+        window.location = "/login";
+      } else {
+        config.headers["Authorization"] = `Bearer ${token}`;
+      }
     }
   }
   // Do something before request is sent
