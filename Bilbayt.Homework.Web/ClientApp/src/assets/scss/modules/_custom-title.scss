@@ -1,0 +1,25 @@
+.custom-title {
+  font-weight: bold;
+  font-size: 24px;
+  color: $orange;
+  position: relative;
+  margin-bottom: 34px;
+
+  span {
+    display: inline-block;
+    position: relative;
+    background-color: #f8f8f8;
+    padding-right: 15px;
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    transform: translateY(-50%);
+    height: 1px;
+    background-color: #cccccc;
+  }
+}

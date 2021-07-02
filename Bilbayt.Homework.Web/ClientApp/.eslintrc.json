@@ -1,0 +1,35 @@
+{
+    "env": {
+        "browser": true,
+        "node": true,
+        "es2021": true,
+        "jest": true
+    },
+    "extends": [
+        "eslint:recommended",
+        "plugin:react/recommended",
+        "plugin:prettier/recommended"
+    ],
+    "parser": "babel-eslint",
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true,            
+            "arrowFunctions": true,
+            "experimentalObjectRestSpread": true            
+        },
+        "ecmaVersion": 12,
+        "sourceType": "module"
+    },
+    "plugins": [
+        "react"
+    ],
+    "rules": {
+        "prettier/prettier": ["error", {
+            "endOfLine": "auto"
+        }],
+        "react/prop-types": [0],
+        "react/no-unescaped-entities": [0],
+        "react/react-in-jsx-scope": [0],
+        "react/display-name": [0]
+    }
+}
