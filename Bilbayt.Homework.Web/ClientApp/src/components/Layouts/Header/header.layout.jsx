@@ -1,4 +1,5 @@
 import Icon from "@iconify/react";
+import { connect } from "react-redux";
 
 import caretDown from "@iconify/icons-fa-solid/caret-down";
 import {
@@ -16,8 +17,17 @@ import {
 } from "./header.styles";
 import LogoBrand from "../../UIs/LogoBrand/logobrand.ui";
 import routes from "../../../configs/routes";
+import { createStructuredSelector } from "reselect";
+import { selectUserProfile } from "../../../store/reducers/users/users.selectors";
+import { logout } from "../../../store/reducers/users/users.action";
 
-const Header = () => {
+const Header = ({ profile, logout }) => {
+  const handleLogout = (e) => {
+    e.preventDefault();
+
+    logout();
+  };
+
   return (
     <HeaderContainer className="fixed-top">
       <NavBarContainer
@@ -54,14 +64,16 @@ const Header = () => {
                   aria-expanded="false"
                 >
                   <AvatarIcon>J</AvatarIcon>
-                  <AvatarName> Hello, JARETH NTEBE </AvatarName>
+                  <AvatarName> Hello, {profile.fullName} </AvatarName>
                   <Icon icon={caretDown} />
                 </a>
                 <DropDownMenu className="dropdown-menu">
                   <DropDownMenuInfo>
-                    <DropDownMenuInfoName>JARETH NTEBE </DropDownMenuInfoName>
+                    <DropDownMenuInfoName>
+                      {profile.fullName}
+                    </DropDownMenuInfoName>
                     <DropDownMenuInfoEmail>
-                      joel.jareth@orange.com
+                      {profile.userName}
                     </DropDownMenuInfoEmail>
                   </DropDownMenuInfo>
                   <DropDownItemLink className="dropdown-item" to={routes.home}>
@@ -69,7 +81,10 @@ const Header = () => {
                     My Profile
                   </DropDownItemLink>
 
-                  <DropDownItemButton className="dropdown-item">
+                  <DropDownItemButton
+                    className="dropdown-item"
+                    onClick={handleLogout}
+                  >
                     {" "}
                     Sign out{" "}
                   </DropDownItemButton>
@@ -82,5 +97,10 @@ const Header = () => {
     </HeaderContainer>
   );
 };
+const mapDispatchToProps = createStructuredSelector({
+  profile: selectUserProfile,
+});
 
-export default Header;
+export default connect(mapDispatchToProps, {
+  logout: (dispatch) => dispatch(logout),
+})(Header);

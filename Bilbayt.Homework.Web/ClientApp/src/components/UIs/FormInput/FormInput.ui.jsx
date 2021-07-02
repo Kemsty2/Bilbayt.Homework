@@ -10,6 +10,7 @@ const FormInput = ({
   showable = false,
   label = "",
   type = "text",
+  invalid = false,
   ...rest
 }) => {
   const [show, setShow] = useState(false);
@@ -24,10 +25,14 @@ const FormInput = ({
     <>
       {label ? <label className="form-input-label">{label}</label> : null}
       {type !== "password" ? (
-        <Input type={type ? type : "text"} {...rest} />
+        <Input type={type ? type : "text"} invalid={invalid} {...rest} />
       ) : showable ? (
         <>
-          <Input type={show ? "text" : "password"} {...rest} />
+          <Input
+            type={show ? "text" : "password"}
+            invalid={invalid}
+            {...rest}
+          />
           <Icon
             icon={!show ? eyeShowSolid : eyeHideSolid}
             onClick={togglePassword}
@@ -41,7 +46,7 @@ const FormInput = ({
           />
         </>
       ) : (
-        <Input type="password" {...rest} />
+        <Input type="password" invalid={invalid} {...rest} />
       )}
     </>
   );

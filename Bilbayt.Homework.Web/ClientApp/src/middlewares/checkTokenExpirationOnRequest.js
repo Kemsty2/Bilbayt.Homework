@@ -1,6 +1,6 @@
 import jwtDecode from "jwt-decode";
 
-import setAuthToken from "../utils/setAuthToken";
+import { setAuthToken } from "../utils/";
 
 const checkTokenExpirationOnRequest = function (config) {
   const userString =

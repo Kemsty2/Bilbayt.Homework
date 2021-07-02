@@ -28,6 +28,17 @@ export const Input = styled.input`
         }`;
     }
   }}
+
+  ${(props) => {
+    if (props.invalid) {
+      return `      
+        border: 1px solid #cd3c14;    
+        &:focus {
+          border: 1px solid #cd3c14;  
+        }  
+      `;
+    }
+  }}
 `;
 
 export const PasswordIcon = styled.div`

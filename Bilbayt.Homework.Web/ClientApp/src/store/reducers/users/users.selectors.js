@@ -1,7 +1,7 @@
 import { createSelector } from "reselect";
-export const selectUser = (state) => state.user;
+export const selectUser = (state) => state.users;
 
 export const selectUserProfile = createSelector(
   selectUser,
-  (user) => user.profile
+  (users) => users.profile
 );

@@ -11,7 +11,7 @@ namespace Bilbayt.Homework.Api.Service.Features.AccountFeatures.Validations
                 .EmailAddress().WithMessage("A Valid email is required");
             RuleFor(x => x.Dto.Password)
                 .NotEmpty().WithMessage("Please enter your password")
-                .Matches(@"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$").WithMessage("Minimum eight characters, at least one letter and one number");
+                .Matches(@"^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$").WithMessage("Minimum eight characters, at least one uppercase letter, one lowercase letter one number and one special character");
         }
     }
 }

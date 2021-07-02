@@ -7,17 +7,17 @@ import WithAuthContainer from "../components/HOCs/WithAuthContainer/WithAuthCont
 import WithPageContainer from "../components/HOCs/WithPageContainer/WithPageContainer.hoc";
 
 const Home = loadable({
-  loader: () => import("../pages/Home/home.page"),
+  loader: () => import("../containers/Home/home.container"),
   loading: SpinLoader,
 });
 
 const Login = loadable({
-  loader: () => import("../pages/Login/login.page"),
+  loader: () => import("../containers/Login/login.container"),
   loading: SpinLoader,
 });
 
 const Register = loadable({
-  loader: () => import("../pages/Register/register.page"),
+  loader: () => import("../containers/Register/register.container"),
   loading: SpinLoader,
 });
 
