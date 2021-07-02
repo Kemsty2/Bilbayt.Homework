@@ -7,6 +7,8 @@
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="10.1.1" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
+    <PackageReference Include="AutoWrapper.Core" Version="4.5.0" />
+    <PackageReference Include="BCrypt.Net-Core" Version="1.6.0" />
     <PackageReference Include="FluentValidation" Version="9.5.3" />
     <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="9.5.3" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
@@ -16,6 +18,7 @@
     <PackageReference Include="MimeKit" Version="2.11.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="5.0.4" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="Polly" Version="7.2.2" />
   </ItemGroup>
 
   <ItemGroup>
@@ -23,9 +26,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Features\AccountFeatures\Commands\" />
-    <Folder Include="Features\AccountFeatures\Validations\" />
-    <Folder Include="Features\AccountFeatures\Notifications\" />
     <Folder Include="Features\AccountFeatures\Queries\" />
     <Folder Include="Middleware\" />
   </ItemGroup>

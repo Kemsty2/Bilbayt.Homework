@@ -4,10 +4,16 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 using System.Text;
+using Bilbayt.Homework.Api.Domain;
 using Bilbayt.Homework.Api.Domain.Common;
+using Bilbayt.Homework.Api.Domain.Entities;
 using Bilbayt.Homework.Api.Domain.Settings;
+using FluentValidation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Http;
 using Microsoft.IdentityModel.Tokens;
+using MongoDB.Bson.Serialization;
+using MongoDB.Bson.Serialization.IdGenerators;
 
 namespace Bilbayt.Homework.Api.Service
 {
@@ -17,6 +23,8 @@ namespace Bilbayt.Homework.Api.Service
         {
             // or you can use assembly in Extension method in Infra layer with below command
             services.AddMediatR(Assembly.GetExecutingAssembly());
+
+            services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
         }
 
         public static void AddAuthenticationService(this IServiceCollection services, IConfiguration configuration)
@@ -42,6 +50,54 @@ namespace Bilbayt.Homework.Api.Service
                     ValidateLifetime = true,
                     ClockSkew = TimeSpan.FromMinutes(1)
                 };
+
+                x.Events = new JwtBearerEvents()
+                {
+                    OnAuthenticationFailed = c =>
+                    {
+                        c.NoResult();
+                        c.Response.StatusCode = 401;
+                        c.Response.ContentType = "application/json";
+
+                        const string result = "You are not Authorized";
+                        return c.Response.WriteAsync(result);
+                    },
+                    OnChallenge = context =>
+                    {
+                        context.HandleResponse();
+                        if (!context.Response.HasStarted)
+                        {
+                            context.Response.StatusCode = 401;
+                            context.Response.ContentType = "application/json";
+                        }
+                        const string result = "You are not Authorized";
+                        return context.Response.WriteAsync(result);
+                    },
+                    OnForbidden = context =>
+                    {
+                        context.Response.StatusCode = 403;
+                        context.Response.ContentType = "application/json";
+                        const string result = "You are not authorized to access this resource";
+                        return context.Response.WriteAsync(result);
+                    },
+                };
+            });
+        }
+
+        public static void AddClassMap(this IServiceCollection services)
+        {
+            BsonClassMap.RegisterClassMap<BaseEntity>(cm =>
+            {
+                cm.SetIsRootClass(true);
+                cm.MapIdMember(c => c.Id).SetIdGenerator(StringObjectIdGenerator.Instance);
+            });
+
+            BsonClassMap.RegisterClassMap<User>(cm =>
+            {
+                cm.AutoMap();
+                cm.MapMember(c => c.UserName).SetIsRequired(true);
+                cm.MapMember(c => c.FullName).SetIsRequired(true);
+                cm.MapMember(c => c.Password).SetIsRequired(true);
             });
         }
     }

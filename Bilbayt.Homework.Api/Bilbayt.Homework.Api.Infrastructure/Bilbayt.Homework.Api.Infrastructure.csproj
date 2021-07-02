@@ -31,8 +31,4 @@
   <ItemGroup>
     <ProjectReference Include="..\Bilbayt.Homework.Api.Service\Bilbayt.Homework.Api.Service.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Mapping\" />
-  </ItemGroup>
 </Project>

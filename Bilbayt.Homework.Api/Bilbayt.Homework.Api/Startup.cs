@@ -39,6 +39,10 @@ namespace Bilbayt.Homework.Api
             services.AddVersion();
 
             services.AddFeatureManagement();
+
+            services.AddClassMap();
+
+            services.AddOptions(Configuration);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IApiVersionDescriptionProvider provider)

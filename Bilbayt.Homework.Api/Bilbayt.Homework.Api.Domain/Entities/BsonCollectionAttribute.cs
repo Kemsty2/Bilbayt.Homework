@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Bilbayt.Homework.Api.Persistence.Attributes
+namespace Bilbayt.Homework.Api.Domain.Entities
 {
     public class BsonCollectionAttribute : Attribute
     {

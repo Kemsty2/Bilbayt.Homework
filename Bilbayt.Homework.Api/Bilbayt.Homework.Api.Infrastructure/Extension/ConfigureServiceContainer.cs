@@ -13,10 +13,13 @@ using Newtonsoft.Json.Serialization;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using Bilbayt.Homework.Api.Infrastructure.Mapping;
 using Bilbayt.Homework.Api.Persistence.Repositories.Contracts;
 using Bilbayt.Homework.Api.Persistence.Repositories.Implementations;
 using Bilbayt.Homework.Api.Service.Contract;
+using Bilbayt.Homework.Api.Service.Features.Behaviours;
 using Bilbayt.Homework.Api.Service.Implementation;
+using MediatR;
 
 namespace Bilbayt.Homework.Api.Infrastructure.Extension
 {
@@ -24,8 +27,9 @@ namespace Bilbayt.Homework.Api.Infrastructure.Extension
     {
         public static void AddAutoMapper(this IServiceCollection serviceCollection)
         {
-            var mappingConfig = new MapperConfiguration(mc =>
+            var mappingConfig = new MapperConfiguration(m =>
             {
+                m.AddProfile(new UserProfile());
             });
             var mapper = mappingConfig.CreateMapper();
             serviceCollection.AddSingleton(mapper);
@@ -40,6 +44,8 @@ namespace Bilbayt.Homework.Api.Infrastructure.Extension
 
         public static void AddTransientServices(this IServiceCollection serviceCollection)
         {
+            serviceCollection.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
+            serviceCollection.AddTransient(typeof(IPipelineBehavior<,>), typeof(LoggingBehaviour<,>));
         }
 
         public static void AddSwaggerOpenApi(this IServiceCollection serviceCollection, IConfiguration configuration)

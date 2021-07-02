@@ -1,11 +1,11 @@
-﻿using Bilbayt.Homework.Api.Persistence.Documents;
+﻿using Bilbayt.Homework.Api.Domain;
 using System;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace Bilbayt.Homework.Api.Persistence.Repositories.Contracts
 {
-    public interface IMongoRepository<TDocument> where TDocument : IBaseDocument
+    public interface IMongoRepository<TDocument> where TDocument : BaseEntity
     {
         Task<TDocument> FindOneAsync(Expression<Func<TDocument, bool>> filterExpression);
 
@@ -16,5 +16,7 @@ namespace Bilbayt.Homework.Api.Persistence.Repositories.Contracts
         Task DeleteOneAsync(Expression<Func<TDocument, bool>> filterExpression);
 
         Task DeleteByIdAsync(string id);
+
+        Task<bool> IsExist(Expression<Func<TDocument, bool>> filterExpression);
     }
 }

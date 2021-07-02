@@ -1,18 +1,17 @@
-﻿using Bilbayt.Homework.Api.Persistence.Documents;
+﻿using Bilbayt.Homework.Api.Domain.Settings;
 using Bilbayt.Homework.Api.Persistence.Repositories.Contracts;
+using Microsoft.Extensions.Options;
+using MongoDB.Driver;
 using System;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using Bilbayt.Homework.Api.Domain.Settings;
-using Bilbayt.Homework.Api.Persistence.Attributes;
-using Microsoft.Extensions.Options;
-using MongoDB.Bson;
-using MongoDB.Driver;
+using Bilbayt.Homework.Api.Domain;
+using Bilbayt.Homework.Api.Domain.Entities;
 
 namespace Bilbayt.Homework.Api.Persistence.Repositories.Implementations
 {
-    public class MongoRepository<TDocument> : IMongoRepository<TDocument> where TDocument : IBaseDocument
+    public class MongoRepository<TDocument> : IMongoRepository<TDocument> where TDocument : BaseEntity
     {
         private readonly IMongoCollection<TDocument> _collection;
 
@@ -31,8 +30,7 @@ namespace Bilbayt.Homework.Api.Persistence.Repositories.Implementations
         {
             return Task.Run(() =>
             {
-                var objectId = new ObjectId(id);
-                var filter = Builders<TDocument>.Filter.Eq(doc => doc.Id, objectId);
+                var filter = Builders<TDocument>.Filter.Eq(doc => doc.Id, id);
                 return _collection.Find(filter).SingleOrDefaultAsync();
             });
         }
@@ -51,10 +49,14 @@ namespace Bilbayt.Homework.Api.Persistence.Repositories.Implementations
         {
             return Task.Run(() =>
             {
-                var objectId = new ObjectId(id);
-                var filter = Builders<TDocument>.Filter.Eq(doc => doc.Id, objectId);
+                var filter = Builders<TDocument>.Filter.Eq(doc => doc.Id, id);
                 _collection.FindOneAndDeleteAsync(filter);
             });
+        }
+
+        public virtual Task<bool> IsExist(Expression<Func<TDocument, bool>> filterExpression)
+        {
+            return Task.Run(() => _collection.CountDocuments(filterExpression) > 0);
         }
 
         #region Private Methods

@@ -28,4 +28,3 @@
         public int RefreshTokenExpiration { get; set; }
     }
 }
-}
