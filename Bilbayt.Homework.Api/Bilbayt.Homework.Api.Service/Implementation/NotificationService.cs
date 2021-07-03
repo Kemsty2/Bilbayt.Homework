@@ -33,6 +33,10 @@ namespace Bilbayt.Homework.Api.Service.Implementation
                     Subject = request.Subject
                 };
                 msg.SetTemplateId(_configuration[$"{Constants.SendGridSettingsSectionName}:TemplateId"]);
+                msg.SetTemplateData(new
+                {
+                    first_name = request.EmailToName.Split(" ")[0]
+                });
                 msg.AddTo(request.EmailTo, request.EmailToName);
 
                 var response = await _client.SendEmailAsync(msg);

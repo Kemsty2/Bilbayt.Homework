@@ -1,33 +1,37 @@
-import { Provider } from "react-redux";
-import { PersistGate } from "redux-persist/integration/react";
-import { ConnectedRouter } from "connected-react-router";
+import { useEffect } from "react";
 import { ToastContainer } from "react-toastify";
-
-import { history } from "./store/reducers/rootReducer";
-import { store, persistor } from "./store";
+import { createStructuredSelector } from "reselect";
+import { connect } from "react-redux";
 import Routes from "./routes/MainRoutes";
 
-const App = () => {
+import { selectUserToken } from "./store/reducers/users/users.selectors";
+import { setAuthToken } from "./utils";
+
+const App = ({ token }) => {
+  useEffect(() => {
+    setAuthToken(token);
+  }, [token]);
+
   return (
-    <Provider store={store}>
-      <ConnectedRouter history={history}>
-        <PersistGate persistor={persistor}>
-          <Routes />
-          <ToastContainer
-            position="top-right"
-            autoClose={5000}
-            hideProgressBar={true}
-            newestOnTop={false}
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-          />
-        </PersistGate>
-      </ConnectedRouter>
-    </Provider>
+    <>
+      <Routes />
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={true}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
+    </>
   );
 };
 
-export default App;
+const mapStateToProps = createStructuredSelector({
+  token: selectUserToken,
+});
+
+export default connect(mapStateToProps, {})(App);

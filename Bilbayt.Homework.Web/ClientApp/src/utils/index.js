@@ -27,9 +27,14 @@ export const displayError = (error) => {
   if (isDev()) {
     console.log(error.response);
   }
+  //toast.error(error.response.data.responseException.exceptionMessage);
 
-  if (error.response && error.response.data && error.response.data.detail) {
-    toast.error(error.response.data.detail);
+  if (
+    error.response &&
+    error.response.data &&
+    error.response.data.responseException
+  ) {
+    toast.error(error.response.data.responseException.exceptionMessage);
   } else {
     if (error.response && error.response.data && error.response.data.errors) {
       toast.error(alertMessages.error400);

@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import { getProfileAsync } from "../../store/reducers/users/users.action";
 
@@ -12,7 +12,7 @@ import Spinner from "../../components/Loaders/spinner/spinner.component";
 const HomeContainer = ({ profile, getProfileAsync }) => {
   const [isLoading, setIsLoading] = useState(false);
 
-  const memorizedProfile = useCallback(() => {
+  useEffect(() => {
     setIsLoading(true);
     getProfileAsync()
       .then(() => {
@@ -21,10 +21,6 @@ const HomeContainer = ({ profile, getProfileAsync }) => {
       .catch(() => {
         setIsLoading(false);
       });
-  }, [profile]);
-
-  useEffect(() => {
-    memorizedProfile();
   }, []);
 
   return !isLoading ? <HomePage profile={profile} /> : <Spinner />;

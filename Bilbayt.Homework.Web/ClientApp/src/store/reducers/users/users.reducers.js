@@ -3,6 +3,7 @@ import { USER_LOGOUT, SET_USER_INFO, SET_TOKEN_USER } from "./users.types";
 const INITIAL_STATE = {
   profile: {},
   token: "",
+  isAuthenticated: false,
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -12,6 +13,7 @@ export default (state = INITIAL_STATE, action) => {
         ...state,
         profile: {},
         token: "",
+        isAuthenticated: false,
       };
     case SET_USER_INFO:
       return {
@@ -22,7 +24,7 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         token: action.payload,
-        loading: false,
+        isAuthenticated: true,
       };
     default:
       return state;

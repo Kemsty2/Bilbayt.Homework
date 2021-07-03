@@ -15,10 +15,12 @@ const LoginContainer = ({ loginAsync }) => {
     loginAsync(data)
       .then(() => {
         setIsLoading(false);
-        history.push("/");
       })
       .catch(() => {
         setIsLoading(false);
+      })
+      .finally(() => {
+        history.push("/");
       });
   };
   return <LoginPage handleSubmit={handleSubmit} isLoading={isLoading} />;

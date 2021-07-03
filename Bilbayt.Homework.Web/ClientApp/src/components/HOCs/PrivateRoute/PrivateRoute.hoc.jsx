@@ -3,23 +3,21 @@ import { Route, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 
-import { selectUserProfile } from "../../../store/reducers/users/users.selectors";
+import { selectUserIsAuthenticated } from "../../../store/reducers/users/users.selectors";
 
-import { isEmpty } from "../../../utils";
-
-const PrivateRoute = ({ component: Component, profile, ...rest }) => {
+const PrivateRoute = ({ component: Component, isAuthenticated, ...rest }) => {
   return (
     <Route
       {...rest}
       render={(props) =>
-        !isEmpty(profile) ? <Component {...props} /> : <Redirect to="/login" />
+        isAuthenticated ? <Component {...props} /> : <Redirect to="/login" />
       }
     />
   );
 };
 
 const mapStateToProps = createStructuredSelector({
-  profile: selectUserProfile,
+  isAuthenticated: selectUserIsAuthenticated,
 });
 
 export default connect(mapStateToProps)(PrivateRoute);

@@ -15,8 +15,6 @@ const checkTokenExpirationOnRequest = function (config) {
         localStorage.clear();
         setAuthToken(null);
         window.location = "/login";
-      } else {
-        config.headers["Authorization"] = `Bearer ${token}`;
       }
     }
   }

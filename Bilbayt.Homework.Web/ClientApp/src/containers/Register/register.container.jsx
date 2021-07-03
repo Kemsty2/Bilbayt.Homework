@@ -14,7 +14,7 @@ const RegisterContainer = ({ registerAsync }) => {
     registerAsync(data)
       .then(() => {
         setIsLoading(false);
-        history.push("/login");
+        history.replace("/login");
       })
       .catch(() => {
         setIsLoading(false);

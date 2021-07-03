@@ -97,10 +97,12 @@ const Header = ({ profile, logout }) => {
     </HeaderContainer>
   );
 };
-const mapDispatchToProps = createStructuredSelector({
+const mapStateToProps = createStructuredSelector({
   profile: selectUserProfile,
 });
 
-export default connect(mapDispatchToProps, {
-  logout: (dispatch) => dispatch(logout),
-})(Header);
+const mapDispatchToProps = (dispatch) => ({
+  logout: () => dispatch(logout()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
