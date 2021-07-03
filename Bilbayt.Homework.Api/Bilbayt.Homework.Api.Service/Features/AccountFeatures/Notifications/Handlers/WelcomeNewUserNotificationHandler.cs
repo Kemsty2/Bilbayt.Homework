@@ -2,6 +2,7 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Bilbayt.Homework.Api.Domain.Common;
 using Bilbayt.Homework.Api.Service.Contract;
 using Microsoft.Extensions.Logging;
 using Polly;
@@ -21,10 +22,19 @@ namespace Bilbayt.Homework.Api.Service.Features.AccountFeatures.Notifications.Ha
 
         public async Task Handle(UserRegisteredNotification notification, CancellationToken cancellationToken)
         {
+            const string welcomeSubject = "Welcome to Bilbayt Homework";
+            const string welcomeMessage = "Welcome to Bilbayt Homework";
+
             var policy = GetPollyPolicy();
             await policy.Execute(async () =>
             {
-                await _notificationService.SendMail();
+                await _notificationService.SendMail(new EmailRequest()
+                {
+                    EmailToName = notification.User.FullName,
+                    EmailTo = notification.User.UserName,
+                    Content = welcomeMessage,
+                    Subject = welcomeSubject
+                });
             });
         }
 

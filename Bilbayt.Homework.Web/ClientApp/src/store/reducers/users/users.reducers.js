@@ -10,6 +10,8 @@ export default (state = INITIAL_STATE, action) => {
     case USER_LOGOUT:
       return {
         ...state,
+        profile: {},
+        token: "",
       };
     case SET_USER_INFO:
       return {

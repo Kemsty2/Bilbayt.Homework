@@ -7,6 +7,7 @@
 
         public const string JwtSettingsSectionName = "JwtSettings";
         public const string MongoDbSettingsSectionName = "MongoDbSettings";
+        public const string SendGridSettingsSectionName = "SendGridSettings";
 
         //  COllections
         public const string UserCollectionName = "Users";

@@ -14,17 +14,23 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.IdentityModel.Tokens;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.IdGenerators;
+using SendGrid.Extensions.DependencyInjection;
 
 namespace Bilbayt.Homework.Api.Service
 {
     public static class DependencyInjection
     {
-        public static void AddServiceLayer(this IServiceCollection services)
+        public static void AddServiceLayer(this IServiceCollection services, IConfiguration configuration)
         {
             // or you can use assembly in Extension method in Infra layer with below command
             services.AddMediatR(Assembly.GetExecutingAssembly());
 
             services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+
+            services.AddSendGrid(options =>
+            {
+                options.ApiKey = configuration[$"{Constants.SendGridSettingsSectionName}:ApiKey"];
+            });
         }
 
         public static void AddAuthenticationService(this IServiceCollection services, IConfiguration configuration)
@@ -84,7 +90,7 @@ namespace Bilbayt.Homework.Api.Service
             });
         }
 
-        public static void AddClassMap(this IServiceCollection services)
+        public static void AddClassMap(this IServiceCollection _)
         {
             BsonClassMap.RegisterClassMap<BaseEntity>(cm =>
             {

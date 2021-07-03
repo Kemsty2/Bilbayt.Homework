@@ -34,7 +34,7 @@ namespace Bilbayt.Homework.Api
 
             services.AddSwaggerOpenApi(Configuration);
 
-            services.AddServiceLayer();
+            services.AddServiceLayer(Configuration);
 
             services.AddVersion();
 
