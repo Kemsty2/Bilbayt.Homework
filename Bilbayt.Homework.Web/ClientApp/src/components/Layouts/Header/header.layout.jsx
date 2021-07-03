@@ -20,6 +20,7 @@ import routes from "../../../configs/routes";
 import { createStructuredSelector } from "reselect";
 import { selectUserProfile } from "../../../store/reducers/users/users.selectors";
 import { logout } from "../../../store/reducers/users/users.action";
+import { isEmpty } from "../../../utils";
 
 const Header = ({ profile, logout }) => {
   const handleLogout = (e) => {
@@ -63,7 +64,9 @@ const Header = ({ profile, logout }) => {
                   aria-haspopup="true"
                   aria-expanded="false"
                 >
-                  <AvatarIcon>J</AvatarIcon>
+                  <AvatarIcon>
+                    {!isEmpty(profile) ? profile.fullName.charAt(0) : ""}
+                  </AvatarIcon>
                   <AvatarName> Hello, {profile.fullName} </AvatarName>
                   <Icon icon={caretDown} />
                 </a>

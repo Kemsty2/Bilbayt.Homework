@@ -31,6 +31,7 @@ export const AvatarIcon = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  text-transform: capitalize;
 `;
 
 export const AvatarName = styled.span`
