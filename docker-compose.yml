@@ -1,0 +1,28 @@
+services:
+  bilbaytdb:
+    image: mongo
+    restart: always
+    ports:
+      - "27017:27017"
+
+  bilbaytapi:
+    build: Dockerflie.Api      
+    depends_on:
+      - bilbaytdb
+    ports:
+      - "8000:80"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - MongoDbSettings__ConnectionString=mongodb://bilbaytdb:27017
+      - JwtSettings__Issuer=http://bilbaytapi
+      - Audience__Issuer=http://bilbaytapi
+      - AllowedCors=http://localhost:8001
+    
+    bilbaytweb:
+      build: Dockerflie.Web
+      volums:
+        - ./Bilbayt.Homework.Web/ClientApp/public:/app/ClientApp/build       
+      depends_on:
+        - bilbaytapi
+      ports:
+        - "8001:80"

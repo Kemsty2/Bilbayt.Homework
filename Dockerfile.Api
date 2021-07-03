@@ -1,0 +1,27 @@
+#See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.
+
+FROM mcr.microsoft.com/dotnet/aspnet:5.0 AS base
+WORKDIR /app
+EXPOSE 80
+EXPOSE 443
+
+FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
+WORKDIR /src
+COPY ["Bilbayt.Homework.Api/Bilbayt.Homework.Api/Bilbayt.Homework.Api.csproj", "Bilbayt.Homework.Api/"]
+COPY ["Bilbayt.Homework.Api/Bilbayt.Homework.Api.Infrastructure/Bilbayt.Homework.Api.Infrastructure.csproj", "Bilbayt.Homework.Api.Infrastructure/"]
+COPY ["Bilbayt.Homework.Api/Bilbayt.Homework.Api.Service/Bilbayt.Homework.Api.Service.csproj", "Bilbayt.Homework.Api.Service/"]
+COPY ["Bilbayt.Homework.Api/Bilbayt.Homework.Api.Persistence/Bilbayt.Homework.Api.Persistence.csproj", "Bilbayt.Homework.Api.Persistence/"]
+COPY ["Bilbayt.Homework.Api/Bilbayt.Homework.Api.Domain/Bilbayt.Homework.Api.Domain.csproj", "Bilbayt.Homework.Api.Domain/"]
+
+RUN dotnet restore "Bilbayt.Homework.Api/Bilbayt.Homework.Api.csproj"
+COPY . .
+WORKDIR "/src/Bilbayt.Homework.Api"
+RUN dotnet build "Bilbayt.Homework.Api.csproj" -c Release -o /app/build
+
+FROM build AS publish
+RUN dotnet publish "Bilbayt.Homework.Api.csproj" -c Release -o /app/publish
+
+FROM base AS final
+WORKDIR /app
+COPY --from=publish /app/publish .
+ENTRYPOINT ["dotnet", "Bilbayt.Homework.Api.dll"]

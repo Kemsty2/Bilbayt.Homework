@@ -52,7 +52,7 @@ namespace Bilbayt.Homework.Api
                 app.UseDeveloperExceptionPage();
             }
             app.UseCors(options =>
-                options.WithOrigins("https://localhost:5001")
+                options.WithOrigins(Configuration["AllowedCors"])
                     .SetIsOriginAllowed((host) => true)
                     .AllowAnyHeader()
                     .AllowAnyMethod()
