@@ -1,0 +1,1 @@
+{ "_id": "70e03351eb7ff57c51bd5443", "_t": ["BaseEntity", "User"], "UserName": "test@test.com", "Password": "$2b$10$eDreHazn6OtfkVFIz9l2p.tpmocIV2sCfaLuKwWEyQtJrFTJ8AlSq", "FullName": "Test" }

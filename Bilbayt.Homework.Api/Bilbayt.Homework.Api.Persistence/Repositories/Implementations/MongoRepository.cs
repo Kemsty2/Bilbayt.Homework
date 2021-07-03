@@ -1,13 +1,13 @@
-﻿using Bilbayt.Homework.Api.Domain.Settings;
+﻿using Bilbayt.Homework.Api.Domain;
+using Bilbayt.Homework.Api.Domain.Entities;
+using Bilbayt.Homework.Api.Domain.Settings;
 using Bilbayt.Homework.Api.Persistence.Repositories.Contracts;
 using Microsoft.Extensions.Options;
-using MongoDB.Driver;
 using System;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using Bilbayt.Homework.Api.Domain;
-using Bilbayt.Homework.Api.Domain.Entities;
+using MongoDB.Driver;
 
 namespace Bilbayt.Homework.Api.Persistence.Repositories.Implementations
 {
@@ -61,7 +61,7 @@ namespace Bilbayt.Homework.Api.Persistence.Repositories.Implementations
 
         #region Private Methods
 
-        private protected string GetCollectionName(Type documentType)
+        protected string GetCollectionName(Type documentType)
         {
             return ((BsonCollectionAttribute)documentType.GetCustomAttributes(
                     typeof(BsonCollectionAttribute),

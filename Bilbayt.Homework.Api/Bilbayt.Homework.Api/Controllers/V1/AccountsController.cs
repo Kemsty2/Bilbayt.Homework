@@ -53,7 +53,7 @@ namespace Bilbayt.Homework.Api.Controllers.V1
         /// <response code="409">return the reason of the conflit</response>
         /// <response code="500">internal server error</response>
         [HttpPost("signup"), MapToApiVersion("1.0")]
-        [ProducesResponseType(typeof(RegisterViewModel), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(UserViewModel), StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
