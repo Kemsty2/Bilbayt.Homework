@@ -20,7 +20,7 @@ It's my first time taking a test like this, so I was a little nervous. I hope I 
 
 To run this project, you will need to configure the folliwing configuration,
 
-- Example: ./Bilbayt.Homework.Api/Bilbayt.Homework.Api/appsettings.json
+- ./Bilbayt.Homework.Api/Bilbayt.Homework.Api/appsettings.json
 
 ```json
 "MongoDbSettings": {
@@ -33,6 +33,17 @@ To run this project, you will need to configure the folliwing configuration,
     "SenderEmail": "Your Sendgrid Sender Email",
     "SenderName": "Your Sendgrid Sender Email"
 }
+```
+
+- ./Bilbayt.Homework.Web/ClientApp/public/config.js
+```js
+/*
+* Api Endpoint
+* When running using docker-compose, 
+* it's http://*localhost:8000, locally it's https://localhost:5003
+*/
+window.env = { BASE_URL: "https://localhost:5003" };
+
 ```
 
 For testing purpose ,i've left my sendgrid api key in the project appsettings

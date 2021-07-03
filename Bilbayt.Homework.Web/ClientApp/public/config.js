@@ -1,1 +1,1 @@
-window.env = { BASE_URL: "htts://localhost:5003" };
+window.env = { BASE_URL: "https://localhost:5003" };
