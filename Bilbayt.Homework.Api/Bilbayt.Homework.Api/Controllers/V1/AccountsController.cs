@@ -52,6 +52,7 @@ namespace Bilbayt.Homework.Api.Controllers.V1
         /// <response code="400">return the bad request errors</response>
         /// <response code="409">return the reason of the conflit</response>
         /// <response code="500">internal server error</response>
+        /// /api/v1/accounts/signup
         [HttpPost("signup"), MapToApiVersion("1.0")]
         [ProducesResponseType(typeof(UserViewModel), StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -75,7 +76,6 @@ namespace Bilbayt.Homework.Api.Controllers.V1
         [Authorize]
         [ProducesResponseType(typeof(UserViewModel), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [Authorize]
         public async Task<IActionResult> GetProfile()
         {
             var username = User.Identity?.Name;

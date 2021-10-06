@@ -41,6 +41,7 @@ namespace Bilbayt.Homework.Api.Service.Features.AccountFeatures.Commands
                     Password = HashPassword(request.Dto.Password),
                     FullName = request.Dto.FullName
                 };
+
                 await _userRepository.InsertOneAsync(user);
 
                 return user;
